@@ -2,8 +2,8 @@
   <b-row>
     <b-col cols="12">
       <h2>
-        Edit Book
-        <b-link href="#/book-list">(Book List)</b-link>
+        Edit Bridge
+        <b-link href="#/bridge-list">(Book List)</b-link>
       </h2>
       <b-jumbotron>
         <template slot="header">
@@ -20,8 +20,8 @@
         <p>
           Updated Date: {{book.updated_date}}
         </p>
-        <b-btn variant="success" @click.stop="editbook(book._id)">Edit</b-btn>
-        <b-btn variant="danger" @click.stop="deletebook(book._id)">Delete</b-btn>
+        <b-btn variant="success" @click.stop="editbridge(book._id)">Edit</b-btn>
+        <b-btn variant="danger" @click.stop="deletebridge(book._id)">Delete</b-btn>
       </b-jumbotron>
     </b-col>
   </b-row>
@@ -32,7 +32,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'ShowBook',
+  name: 'ShowBridge',
   data () {
     return {
       book: []
@@ -48,17 +48,17 @@ export default {
     })
   },
   methods: {
-    editbook (bookid) {
+    editbridge (bridgeid) {
       this.$router.push({
-        name: 'EditBook',
-        params: { id: bookid }
+        name: 'EditBridge',
+        params: { id: bridgeid }
       })
     },
-    deletebook (bookid) {
-      axios.delete('http://localhost:3000/book/' + bookid)
+    deletebridge (bridgeid) {
+      axios.delete('http://localhost:3000/book/' + bridgeid)
       .then((result) => {
         this.$router.push({
-          name: 'BookList'
+          name: 'BridgeList'
         })
       })
       .catch(e => {

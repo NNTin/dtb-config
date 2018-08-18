@@ -2,8 +2,8 @@
   <b-row>
     <b-col cols="12">
       <h2>
-        Add Book
-        <b-link href="#/book-list">(Book List)</b-link>
+        Add Bridge
+        <b-link href="#/bridge-list">(Bridge List)</b-link>
       </h2>
       <b-form @submit="onSubmit">
         <b-form-group id="fieldsetHorizontal"
@@ -63,7 +63,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'CreateBook',
+  name: 'CreateBridge',
   data () {
     return {
       book: {}
@@ -75,7 +75,7 @@ export default {
       axios.post(`http://localhost:3000/book`, this.book)
       .then(response => {
         this.$router.push({
-          name: 'ShowBook',
+          name: 'ShowBridge',
           params: { id: response.data._id }
         })
       })

@@ -2,8 +2,8 @@
   <b-row>
     <b-col cols="12">
       <h2>
-        Add Book
-        <b-link href="#/book-list">(Book List)</b-link>
+        Edit Bridge
+        <router-link :to="{ name: 'ShowBridge', params: { id: book._id } }">(Show Bridge)</router-link>
       </h2>
       <b-form @submit="onSubmit">
         <b-form-group id="fieldsetHorizontal"
@@ -52,7 +52,7 @@
                   label="Enter Publisher">
           <b-form-input id="publisher" :state="state" v-model.trim="book.publisher"></b-form-input>
         </b-form-group>
-        <b-button type="submit" variant="primary">Save</b-button>
+        <b-button type="submit" variant="primary">Update</b-button>
       </b-form>
     </b-col>
   </b-row>
@@ -63,20 +63,29 @@
 import axios from 'axios'
 
 export default {
-  name: 'CreateBook',
+  name: 'EditBridge',
   data () {
     return {
       book: {}
     }
   },
+  created () {
+    axios.get(`http://localhost:3000/book/` + this.$route.params.id)
+    .then(response => {
+      this.book = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
+  },
   methods: {
     onSubmit (evt) {
       evt.preventDefault()
-      axios.post(`http://localhost:3000/book`, this.book)
+      axios.put(`http://localhost:3000/book/` + this.$route.params.id, this.book)
       .then(response => {
         this.$router.push({
-          name: 'ShowBook',
-          params: { id: response.data._id }
+          name: 'ShowBridge',
+          params: { id: this.$route.params.id }
         })
       })
       .catch(e => {
