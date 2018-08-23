@@ -3,25 +3,23 @@
     <b-col cols="12">
       <h2>
         Edit Bridge
-        <b-link href="#/bridge-list">(Book List)</b-link>
+        <b-link href="#/bridge-list">(Bridge List)</b-link>
       </h2>
       <b-jumbotron>
         <template slot="header">
-          {{book.title}}
+          {{bridge.name}}
         </template>
         <template slot="lead">
-          ISBN: {{book.isbn}}<br>
-          Author: {{book.author}}<br>
-          Description: {{book.description}}<br>
-          Published Year: {{book.published_year}}<br>
-          Publisher: {{book.publisher}}<br>
+          name: {{bridge.name}}<br>
+          discord_webhook_url: {{bridge.discord_webhook_url}}<br>
+          description: {{bridge.twitter_ids}}<br>
         </template>
         <hr class="my-4">
         <p>
-          Updated Date: {{book.updated_date}}
+          Updated Date: {{bridge.updated_date}}
         </p>
-        <b-btn variant="success" @click.stop="editbridge(book._id)">Edit</b-btn>
-        <b-btn variant="danger" @click.stop="deletebridge(book._id)">Delete</b-btn>
+        <b-btn variant="success" @click.stop="editbridge(bridge._id)">Edit</b-btn>
+        <b-btn variant="danger" @click.stop="deletebridge(bridge._id)">Delete</b-btn>
       </b-jumbotron>
     </b-col>
   </b-row>
@@ -35,13 +33,13 @@ export default {
   name: 'ShowBridge',
   data () {
     return {
-      book: []
+      bridge: []
     }
   },
   created () {
-    axios.get(`http://localhost:3000/book/` + this.$route.params.id)
+    axios.get(`http://localhost:3000/bridge/` + this.$route.params.id)
     .then(response => {
-      this.book = response.data
+      this.bridge = response.data
     })
     .catch(e => {
       this.errors.push(e)
@@ -55,7 +53,7 @@ export default {
       })
     },
     deletebridge (bridgeid) {
-      axios.delete('http://localhost:3000/book/' + bridgeid)
+      axios.delete('http://localhost:3000/bridge/' + bridgeid)
       .then((result) => {
         this.$router.push({
           name: 'BridgeList'

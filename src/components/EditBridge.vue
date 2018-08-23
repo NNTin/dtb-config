@@ -3,54 +3,29 @@
     <b-col cols="12">
       <h2>
         Edit Bridge
-        <router-link :to="{ name: 'ShowBridge', params: { id: book._id } }">(Show Bridge)</router-link>
+        <router-link :to="{ name: 'ShowBridge', params: { id: bridge._id } }">(Show Bridge)</router-link>
       </h2>
       <b-form @submit="onSubmit">
         <b-form-group id="fieldsetHorizontal"
                   horizontal
                   :label-cols="4"
                   breakpoint="md"
-                  label="Enter ISBN">
-          <b-form-input id="isbn" :state="state" v-model.trim="book.isbn"></b-form-input>
+                  label="Enter name of the bridge">
+          <b-form-input id="name" :state="state" v-model.trim="bridge.name"></b-form-input>
         </b-form-group>
         <b-form-group id="fieldsetHorizontal"
                   horizontal
                   :label-cols="4"
                   breakpoint="md"
-                  label="Enter Title">
-          <b-form-input id="title" :state="state" v-model.trim="book.title"></b-form-input>
+                  label="Enter Discord Webhook URL">
+          <b-form-input id="discord_webhook_url" :state="state" v-model.trim="bridge.discord_webhook_url"></b-form-input>
         </b-form-group>
         <b-form-group id="fieldsetHorizontal"
                   horizontal
                   :label-cols="4"
                   breakpoint="md"
-                  label="Enter Author">
-          <b-form-input id="author" :state="state" v-model.trim="book.author"></b-form-input>
-        </b-form-group>
-        <b-form-group id="fieldsetHorizontal"
-                  horizontal
-                  :label-cols="4"
-                  breakpoint="md"
-                  label="Enter Description">
-            <b-form-textarea id="description"
-                       v-model="book.description"
-                       placeholder="Enter something"
-                       :rows="2"
-                       :max-rows="6">{{book.description}}</b-form-textarea>
-        </b-form-group>
-        <b-form-group id="fieldsetHorizontal"
-                  horizontal
-                  :label-cols="4"
-                  breakpoint="md"
-                  label="Enter Publisher Year">
-          <b-form-input id="published_year" :state="state" v-model.trim="book.published_year"></b-form-input>
-        </b-form-group>
-        <b-form-group id="fieldsetHorizontal"
-                  horizontal
-                  :label-cols="4"
-                  breakpoint="md"
-                  label="Enter Publisher">
-          <b-form-input id="publisher" :state="state" v-model.trim="book.publisher"></b-form-input>
+                  label="Enter Twitter IDs">
+          <b-form-input id="twitter_ids" :state="state" v-model.trim="bridge.twitter_ids"></b-form-input>
         </b-form-group>
         <b-button type="submit" variant="primary">Update</b-button>
       </b-form>
@@ -66,13 +41,13 @@ export default {
   name: 'EditBridge',
   data () {
     return {
-      book: {}
+      bridge: {}
     }
   },
   created () {
-    axios.get(`http://localhost:3000/book/` + this.$route.params.id)
+    axios.get(`http://localhost:3000/bridge/` + this.$route.params.id)
     .then(response => {
-      this.book = response.data
+      this.bridge = response.data
     })
     .catch(e => {
       this.errors.push(e)
@@ -81,7 +56,7 @@ export default {
   methods: {
     onSubmit (evt) {
       evt.preventDefault()
-      axios.put(`http://localhost:3000/book/` + this.$route.params.id, this.book)
+      axios.put(`http://localhost:3000/bridge/` + this.$route.params.id, this.bridge)
       .then(response => {
         this.$router.push({
           name: 'ShowBridge',
